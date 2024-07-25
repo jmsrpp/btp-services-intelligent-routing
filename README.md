@@ -28,10 +28,10 @@ This repository is dedicated to exploring the various aspects of state replicati
 ### 2.1 Architecture Overview
 The solution diagram below illustrates a hybrid and multi-cloud architecture design that integrates applications with SAP BTP services and solutions on various hyperscaler services. This approach allows for greater flexibility and scalability by leveraging the capabilities of multiple cloud providers.
 
-![Architecture](images/Azure%20CI%20HA%20-%20Reference%20Architecture.png)
+![Architecture](refArchImg/Azure%20CI%20HA%20-%20Reference%20Architecture.png)
 In this setup, a custom domain is used to create a common URL, rather than using the URL provided by the SAP BTP services/applications. The iFlows are deployed across multiple regions (subaccounts), and the hyperscaler load balancer configurations are leveraged to intelligently route requests from the custom domain URL to the healthy application based on health checks. In the event of a failover, the switch to the healthy application is seamless, as the URL accessed by the user remains the same. Behind the scenes, requests are routed to the healthy region based on the maintained configuration. This ensures that the system remains available and responsive, even in the event of a regional outage or other disruption.
 
-What is different here from the stateful architecture is the usage of SAP HANA for persistancey and SAP AEM for messaging/event based scenarios. A custom application called MRM - Multi-Region manager is used to replicate the state of HANA and control the AEM events across two regions. 
+What is different here from the stateful architecture is the usage of SAP HANA Cloud for persistency and SAP AEM for messaging/event based scenarios. A custom application called MRM - Multi-Region manager is used to replicate the state of HANA and control the AEM events across two regions. 
 
 ### 2.2 Required services
 
@@ -44,7 +44,7 @@ Services required to implement this solution architecture are as follows:
 ### 2.3 Architecture Deep Dive
 Please refer to the detailed documentation provided in the link below for an in-depth exploration of the architecture and solution. It includes comprehensive explanations along with sequence diagrams to illustrate the flow of the solution.
 
-[Architecture Deep Dive](./tutorial/README.md)
+[Architecture Deep Dive](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/README.md)
 
 
 ## 3. End-to-End Setup
@@ -52,11 +52,11 @@ Having delved into the concepts of state replication using HANA and Asynchronous
 
 ##### [Step 1: Setup Stateless multi-region Scenario](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_azure) is a prerequisite for the stateful setup
 
-##### [Step 2: Setup SAP HANA Cloud and Establish the RTR](./tutorial/02-SetupHanaCloud/README.md)
-##### [Step 3: Setup SAP Advanced Event Mesh with Dynamic Messaging Routing (DMR) Cluster](./tutorial/03-SetupAEM/README.md)
-##### [Step 4: Setup Multi Region Manager service - CAP Application](./tutorial/04-SetupMRM/README.md)
-##### [Step 5: Setup Azure Traffic Manager Alert rule (Optional)](./tutorial/05-SetupAlertRule/README.md) 
-##### [Step 6: Testing the Failover](./tutorial/06-TestFailover/README.md)
+##### [Step 2: Setup SAP HANA Cloud and Establish the RTR](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/02-SetupHanaCloud/README.md)
+##### [Step 3: Setup SAP Advanced Event Mesh with Dynamic Messaging Routing (DMR) Cluster](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/03-SetupAEM/README.md)
+##### [Step 4: Setup Multi Region Manager service - CAP Application](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/04-SetupMRM/README.md)
+##### [Step 5: Setup Azure Traffic Manager Alert rule (Optional)](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/05-SetupAlertRule/README.md) 
+##### [Step 6: Testing the Failover](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/06-TestFailover/README.md)
 
 ## 4. Demo
 #### Manual Switchover 
@@ -68,7 +68,7 @@ https://github.com/SAP-samples/btp-services-intelligent-routing/assets/1583418/b
 * The RTO for a manual switch is influenced by several factors and can take approximately 50 minutes for 500 iFlows. 
 * Assuming near real-time replication and a maximum delay of 2 minutes for 500 tables, the RPO could be estimated around 2 minutes for the worst-case scenario
 
-For further information, please refer to the detailed documentation available [here](./tutorial/07-Performance/README.md).
+For further information, please refer to the detailed documentation available [here](https://github.com/SAP-samples/btp-services-intelligent-routing/tree/ci_stateful_azure/tutorial/07-Performance/README.md).
 
 ## Known Issues
 While we successfully demonstrated the technical possibility of replicating state across two SAP Cloud Integration tenants in different regions, we identified several compromises and concerns during the assessment: 
@@ -77,7 +77,7 @@ While we successfully demonstrated the technical possibility of replicating stat
 * Additional investments and tooling for monitoring the multi-region setup, as well as the dedicated operations teams to handle switchover procedures.
 * The requirement to reconstruct standard content and B2B iFlows (such as TPM) to comply with multi-region state persistence guidelines, demanding considerable refactoring and development work for the customer. 
 
-## <a name="furtherreading"></a> Further Reading
+## Further Reading
 
 GitHub: [High Availability of SAP Launchpad service](https://github.tools.sap/btp-use-case-factory/launchpad-ha)
 
@@ -94,7 +94,3 @@ If you wish to contribute code, offer fixes or improvements, please send a pull 
 
 ## License
 Copyright (c) 2022 SAP SE or an SAP affiliate company. All rights reserved. This project is licensed under the Apache Software License, version 2.0 except as noted otherwise in the [LICENSE](LICENSES/Apache-2.0.txt) file.
-
-
-
-

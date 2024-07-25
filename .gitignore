@@ -1,7 +1,0 @@
-multi-region-manager/*.http
-multi-region-test/*.http
-multi-region-manager/ups-*.json
-multi-region-manager/default-*.json
-multi-region-manager/ups.json
-node_modules
-*.mta
